@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package email;
+
+import "google/api/annotations.proto";
+//import "google/protobuf/timestamp.proto";
+
+option go_package = "proto_dst/email";
+
+message EmailRequest {
+    string recipient = 1;
+    string subject = 2;
+    string body = 3;
+}
+
+message EmailResponse {
+  string recipient = 1;
+  string subject = 2;
+  string body = 3;
+}
+
+service EmailService {
+    rpc SendEmail(EmailRequest) returns (EmailResponse) {
+        option (google.api.http) = {
+            post: "/email"
+            body: "*"
+        };
+    }
+}
